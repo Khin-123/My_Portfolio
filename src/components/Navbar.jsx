@@ -16,8 +16,10 @@ export default function Navbar() {
     function updateActive() {
       frame = null
       const atBottom = window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 2
-      const threshold = (navRef.current?.getBoundingClientRect().height || 76) + 24
-      const currentSection = atBottom ? sections.at(-1) : sections.findLast((section) => section.getBoundingClientRect().top <= threshold)
+      const currentSection = atBottom ? sections.at(-1) : sections.findLast((section) => {
+        const anchorOffset = parseFloat(getComputedStyle(section).scrollMarginTop)
+        return section.getBoundingClientRect().top <= anchorOffset + 1
+      })
       setActive(currentSection?.id || 'home')
     }
     function scheduleUpdate() {
@@ -26,9 +28,11 @@ export default function Navbar() {
     updateActive()
     window.addEventListener('scroll', scheduleUpdate, { passive: true })
     window.addEventListener('resize', scheduleUpdate)
+    window.addEventListener('hashchange', scheduleUpdate)
     return () => {
       window.removeEventListener('scroll', scheduleUpdate)
       window.removeEventListener('resize', scheduleUpdate)
+      window.removeEventListener('hashchange', scheduleUpdate)
       if (frame !== null) window.cancelAnimationFrame(frame)
     }
   }, [])
@@ -45,7 +49,7 @@ export default function Navbar() {
       if (!navRef.current?.contains(event.target)) setOpen(false)
     }
     function onResize() {
-      if (window.innerWidth > 1100) setOpen(false)
+      if (toggleRef.current?.getClientRects().length === 0) setOpen(false)
     }
     document.addEventListener('keydown', onKeyDown)
     document.addEventListener('pointerdown', onPointerDown)
@@ -64,22 +68,22 @@ export default function Navbar() {
           <span className="brand-icon"><Code2 size={21} aria-hidden="true" /></span>
           <span>{profile.name}</span>
         </a>
+        <button ref={toggleRef} className="menu-toggle" type="button" aria-label={open ? 'Close navigation' : 'Open navigation'}
+          aria-expanded={open} aria-controls="navigation-links" onClick={() => setOpen((value) => !value)}>
+          {open ? <X size={23} aria-hidden="true" /> : <Menu size={23} aria-hidden="true" />}
+        </button>
         <div id="navigation-links" className={`nav-links ${open ? 'is-open' : ''}`}>
           {links.map((label) => {
             const id = label.toLowerCase()
             return (
               <a key={id} href={`#${id}`} aria-current={active === id ? 'location' : undefined}
                 className={`${active === id ? 'active' : ''} ${id === 'contact' ? 'nav-contact' : ''}`}
-                onClick={() => { setOpen(false); setActive(id) }}>
+                onClick={() => setOpen(false)}>
                 {label}{id === 'contact' && <ArrowUpRight size={15} aria-hidden="true" />}
               </a>
             )
           })}
         </div>
-        <button ref={toggleRef} className="menu-toggle" type="button" aria-label={open ? 'Close navigation' : 'Open navigation'}
-          aria-expanded={open} aria-controls="navigation-links" onClick={() => setOpen((value) => !value)}>
-          {open ? <X size={23} aria-hidden="true" /> : <Menu size={23} aria-hidden="true" />}
-        </button>
       </nav>
     </header>
   )

@@ -30,18 +30,15 @@ npm run preview
 | `src/data/achievements.js` | Achievements, certifications, and conference paper title |
 | `src/components/` | Reusable navigation, project, illustration, and dialog UI |
 | `src/App.jsx` | Page sections and composition |
-| `src/index.css` | Colors, typography, responsive layouts, and hover effects |
-| `src/theme.css` | Current cyan/light-blue visual theme, Kanit headings, and section designs |
+| `src/index.css` | Theme, typography, responsive layouts, and interaction styles |
 | `index.html` | Browser title, description, and other page metadata |
 | `public/` | Static files such as a CV or project screenshots |
 
 The current hero uses your portrait at `public/images/profile-photo.jpg`. Replace that file to update the photo. The earlier IoT illustration remains as an unused asset. Design sources, font licensing, and the earlier image prompt are recorded in `docs/design-notes.md`. Kanit fonts are served locally; no font CDN is required.
 
-The workspace was empty before setup, so there were no existing project files to replace.
-
 ## Add your information
 
-Your name, email, phone, university, major, and study period are configured in `src/data/profile.js`. Edit the introduction, About paragraphs, and skill groups there. Add your complete LinkedIn URL when available.
+Your contact information, career target, degree, and study period are configured in `src/data/profile.js`. Set `education.expectedGraduation` to your confirmed month and year, `profile.availability` to your confirmed start window, and `profile.linkedin` to your maintained LinkedIn profile when available.
 
 The GitHub profile URL is derived from the supplied project repository links. Verify it before publishing. Unavailable LinkedIn and CV links stay hidden until configured. Leave any unavailable optional link as `null`.
 
@@ -51,29 +48,26 @@ To enable the CV download:
 2. Set `profile.cvUrl` to `'/cv/cv.pdf'`.
 3. Optionally change `profile.cvFileName` to the preferred download filename.
 
-Update the title and meta description in `index.html` when you personalize the site. No personal photo or avatar is required.
+For social previews, set `VITE_SITE_URL` to your public HTTPS portfolio URL before building. Vite uses it for the canonical URL and the full URL to `public/images/portfolio-share.jpg`. The title and description live in `index.html`.
 
 ## Add certificate images
 
-Place certificate files in `public/certificates/`, then set the matching `certificateUrl` in `src/data/achievements.js`, such as `'/certificates/jlpt-n3.jpg'`. See `public/certificates/README.md` for all suggested filenames and supported formats. The **View certificate** link appears only after the URL is configured; null values show a pending message. Run `npm run check` to catch missing local files before publishing.
+Place flattened, redacted certificate files in `public/certificates/`, then set the matching `certificateUrl` in `src/data/achievements.js`, such as `'/certificates/jlpt-n3.jpg'`. Keep originals in private storage. Run `npm run check` to catch missing local files before publishing.
 
 ## Add or edit projects
 
-Edit the exported `projects` array in `src/data/projects.js`. Each object creates one card and provides the content for its **View Details** dialog. For example:
+Edit the exported `projects` array in `src/data/projects.js`. Each object creates a card and a case study at `/#project-<id>`. For example:
 
 ```js
 {
   id: 'my-project', // Unique, stable identifier
   title: '[Project title]',
   year: '2026',
-  subtitle: '[One-line project summary]',
   description: '[A short, factual description]',
   category: 'Software',
+  specialty: 'Digital signal processing',
   technologies: ['React', 'Tailwind CSS'],
   github: null, // Or a complete https://github.com/... URL
-  demo: null, // Or a complete https://... URL
-  visual: 'software',
-  image: null, // Optional: '/projects/my-project.webp'
   details: {
     overview: '[Additional information about the project]',
     highlights: ['[A verified feature or implementation detail]'],
@@ -81,9 +75,9 @@ Edit the exported `projects` array in `src/data/projects.js`. Each object create
 }
 ```
 
-Supported categories are `Software`, `Hardware`, and `IoT/Embedded`. Designed illustrations are available for `greenhouse`, `music`, `remote`, and `health`; other `visual` values use a software illustration. An optional image path can point to a file in `public/`, such as `public/projects/my-project.webp`, or a complete image URL.
+Supported categories are `IoT & Embedded`, `Hardware`, and `Software`. The `technologies` list appears under **Skills & tools** on each project card and in the case study. Use `specialty` for areas such as DSP or modeling. Add `contribution` and `verification` to show your role and a verified result in the case study. The **View details** link opens case study content, including optional photos and videos. Follow the existing `evidence` objects for the media format.
 
-GitHub and Live Demo links appear only when their values are provided. Project details should describe only features you have actually implemented. The supplied four projects use the information in the brief, without invented performance figures or project capabilities.
+Projects with a public GitHub URL show **View repository** on the card. App links appear in the case study when their URLs are supplied. The current TuneWave clips use synthetic speech processed with the project’s speech enhancement code. The sample concentration plot uses the simulator’s own plotting function with fictitious parameters.
 
 ## Interaction and accessibility
 
@@ -102,7 +96,7 @@ The page includes section navigation, a mobile menu, keyboard focus styles, acce
    | Build Command | `npm run build` |
    | Output Directory | `dist` |
    | Install Command | Automatic npm detection |
-   | Environment Variables | None required |
+   | Environment Variables | Set `VITE_SITE_URL` to your public HTTPS portfolio URL for social previews |
 
 5. Click **Deploy** and open the URL Vercel provides.
 

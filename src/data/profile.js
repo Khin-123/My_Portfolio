@@ -1,47 +1,45 @@
-// Edit this file to personalize the portfolio. Leave unavailable links as null.
 export const profile = {
   name: 'Khin Thida Hnin',
-  initials: 'KTH',
-  role: 'Embedded Systems Student',
-  introduction:
-    "I'm an Embedded Systems student passionate about building practical solutions that connect hardware and software. I enjoy working with microcontrollers, developing IoT applications, and turning ideas into systems that interact with the real world.",
+  introduction: 'I\'m an Embedded Systems student passionate about building practical solutions that connect hardware and software. I enjoy working with microcontrollers, developing IoT applications, and turning ideas into systems that interact with the real world.',
+  jobTarget: 'Seeking entry-level embedded systems and IoT roles in Japan.',
+  availability: null,
   about: [
-    'My work focuses on embedded systems, IoT development, and software engineering. I have experience working with microcontrollers, sensors, and electronic circuits, as well as developing software applications using Python and web technologies.',
-    'Throughout my projects, I have built systems ranging from smart greenhouse monitoring and cloud-connected infrared remote control to electronic voltage protection circuits. I have also explored digital signal processing and mathematical modeling through software-based applications.',
-    'I enjoy learning new technologies, solving technical challenges, and combining different areas of engineering to create useful, real-world solutions. My goal is to grow as an Embedded Systems Engineer and contribute to innovative technology development in Japan.',
+    'I’m a final-year student at the University of Information Technology in Yangon, specializing in embedded systems. I build IoT devices with microcontrollers and sensors, design and test electronic circuits, and develop applications with Python and web technologies.',
+    'My projects include an ESP32-based greenhouse monitoring system, a cloud-connected infrared remote, and a DC voltage protection circuit I tested on the bench. I’ve also used digital signal processing to reduce background noise in speech and mathematical modeling to simulate how drug concentration changes over time.',
+    'I enjoy learning new tools and working through technical problems, especially when I can test my ideas on real hardware or in a working application.',
   ],
   email: 'khinthidahnin@uit.edu.mm',
   phone: '+959 775523162',
-  // Derived from the GreenSync, MoodTune, and IoT Universal Remote repository URLs.
   github: 'https://github.com/Khin-123',
-  linkedin: null, // Example: 'https://www.linkedin.com/in/your-profile'
-  cvUrl: null, // Add your CV to public/ and set this to '/your-cv.pdf'.
-  cvFileName: 'CV.pdf',
-};
+  githubLabel: 'Wang Li Xiang (@Khin-123)',
+  linkedin: 'https://www.linkedin.com/in/khin-thida-hnin-559311381',
+  cvUrl: null,
+  cvFileName: 'Khin-Thida-Hnin-CV.pdf',
+}
 
 export const education = {
   university: 'University of Information Technology, Yangon',
-  degree: 'Embedded Systems major',
-  period: '2022–current',
-  status: 'Final-year student',
-};
+  degree: 'Bachelor of Computer Technology in Embedded Systems',
+  period: '2022–present',
+  status: 'Final year',
+  expectedGraduation: 'December 2027',
+}
 
-// Add or move skill names freely; these groups are rendered automatically.
 export const skillGroups = [
   {
-    title: 'IoT & Embedded',
-    skills: ['Arduino', 'ESP32', 'STM32'],
+    title: 'Embedded systems',
+    skills: ['ESP32', 'STM32', 'Arduino'],
   },
   {
-    title: 'Programming Languages',
+    title: 'Programming',
     skills: ['C', 'C++', 'Python', 'JavaScript'],
   },
   {
-    title: 'Web Development Frameworks',
-    skills: ['React', 'Tailwind CSS', 'Node.js'],
+    title: 'Hardware validation',
+    skills: ['PCB design', 'Hardware testing', 'Proteus', 'EasyEDA'],
   },
   {
-    title: 'Tools & Workflow',
-    skills: ['Git', 'GitHub', 'VS Code', 'PlatformIO', 'Arduino IDE'],
+    title: 'Web & development tools',
+    skills: ['React', 'Tailwind CSS', 'Node.js', 'Git', 'GitHub', 'PlatformIO', 'Arduino IDE', 'VS Code'],
   },
-];
+]

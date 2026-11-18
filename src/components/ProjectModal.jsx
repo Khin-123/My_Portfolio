@@ -1,11 +1,12 @@
 import { useEffect, useRef } from 'react'
-import { ArrowUpRight, CalendarDays, Github, Layers3, X } from 'lucide-react'
+import { ArrowUpRight, Github, X } from 'lucide-react'
+import ProjectVisual from './ProjectVisual'
 
 export default function ProjectModal({ project, onClose }) {
   const dialogRef = useRef(null)
-  const contentRef = useRef(null)
   const closeRef = useRef(null)
   const backdropPointerDown = useRef(false)
+  const linkedSection = useRef(null)
 
   useEffect(() => {
     if (!project) return undefined
@@ -21,26 +22,25 @@ export default function ProjectModal({ project, onClose }) {
     return () => {
       if (dialog.open) dialog.close()
       document.body.style.overflow = previousOverflow
-      if (previousFocus instanceof HTMLElement && previousFocus.isConnected) {
+
+      if (linkedSection.current) {
+        linkedSection.current.focus({ preventScroll: true })
+        linkedSection.current = null
+      } else if (previousFocus instanceof HTMLElement && previousFocus !== document.body && previousFocus.isConnected) {
         previousFocus.focus({ preventScroll: true })
+      } else {
+        document.querySelector(`.project-link[href="#project-${project.id}"]`)?.focus({ preventScroll: true })
       }
     }
   }, [project])
 
   if (!project) return null
 
-  function isOutsideContent(event) {
-    const bounds = contentRef.current?.getBoundingClientRect()
-    return bounds && (
-      event.clientX < bounds.left ||
-      event.clientX > bounds.right ||
-      event.clientY < bounds.top ||
-      event.clientY > bounds.bottom
-    )
-  }
+  const relatedLink = project.details.relatedLink
 
   return (
     <dialog
+      key={project.id}
       ref={dialogRef}
       className="project-dialog"
       aria-labelledby="project-modal-title"
@@ -50,74 +50,66 @@ export default function ProjectModal({ project, onClose }) {
         onClose()
       }}
       onPointerDown={(event) => {
-        backdropPointerDown.current = event.target === event.currentTarget && isOutsideContent(event)
+        backdropPointerDown.current = event.target === event.currentTarget
       }}
       onClick={(event) => {
-        if (backdropPointerDown.current && event.target === event.currentTarget && isOutsideContent(event)) {
-          onClose()
-        }
+        if (backdropPointerDown.current && event.target === event.currentTarget) onClose()
         backdropPointerDown.current = false
       }}
     >
-      <div ref={contentRef} className="modal-content">
-        <button
-          ref={closeRef}
-          type="button"
-          className="modal-close"
-          aria-label="Close project details"
-          onClick={onClose}
-        >
-          <X size={20} aria-hidden="true" />
-        </button>
+      <div className="modal-shell">
+        <header className="modal-header">
+          <h2 id="project-modal-title">{project.title}</h2>
+          <button ref={closeRef} type="button" className="modal-close" aria-label="Close project details" onClick={onClose}>
+            <X size={22} aria-hidden="true" />
+          </button>
+        </header>
+        <div className="modal-content" tabIndex={0} role="region" aria-label="Case study content">
+          <div className="project-meta"><span>{project.specialty || project.category}</span><span>{project.year}</span></div>
+          <p id="project-modal-overview">{project.details.overview}</p>
 
-        <p className="eyebrow">Project details</p>
-        <h2 id="project-modal-title">{project.title}</h2>
-        <p className="modal-subtitle">{project.subtitle}</p>
-        <div className="modal-meta">
-          <span><CalendarDays size={15} aria-hidden="true" /> {project.year}</span>
-          <span><Layers3 size={15} aria-hidden="true" /> {project.category}</span>
-        </div>
+          {(project.contribution || project.verification) && (
+            <dl className="project-facts">
+              {project.contribution && <div><dt>My contribution</dt><dd>{project.contribution}</dd></div>}
+              {project.verification && <div><dt>How I verified it</dt><dd>{project.verification}</dd></div>}
+            </dl>
+          )}
+          <ProjectVisual evidence={project.evidence} />
+          {project.details.highlights && (
+            <ul className="modal-highlights">
+              {project.details.highlights.map((highlight) => <li key={highlight}>{highlight}</li>)}
+            </ul>
+          )}
 
-        <p id="project-modal-overview">{project.details?.overview || project.description}</p>
-        {project.details?.highlights?.length > 0 && (
-          <ul className="modal-highlights">
-            {project.details.highlights.map((highlight) => <li key={highlight}>{highlight}</li>)}
+          <ul className="tags" role="list" aria-label="Technologies used">
+            {project.technologies.map((technology) => <li className="tag" key={technology}>{technology}</li>)}
           </ul>
-        )}
 
-        <div className="tags" aria-label="Technologies used">
-          {project.technologies.map((technology) => (
-            <span className="tag" key={technology}>{technology}</span>
-          ))}
+          {(project.github || project.demo || relatedLink) && (
+            <div className="modal-links">
+              {relatedLink && (
+                <a className="button button-primary" href={relatedLink.href} target={relatedLink.href.startsWith('https:') ? '_blank' : undefined} rel="noreferrer"
+                  onClick={(event) => {
+                    if (relatedLink.href.startsWith('#') && !event.metaKey && !event.ctrlKey && !event.shiftKey && !event.altKey) {
+                      linkedSection.current = document.getElementById(relatedLink.href.slice(1))
+                    }
+                  }}>
+                  {relatedLink.label} <ArrowUpRight size={17} aria-hidden="true" />
+                </a>
+              )}
+              {project.github && (
+                <a className="button button-secondary" href={project.github} target="_blank" rel="noreferrer" aria-label={`View ${project.title} on GitHub (opens in a new tab)`}>
+                  <Github size={17} aria-hidden="true" /> View on GitHub
+                </a>
+              )}
+              {project.demo && (
+                <a className="button button-secondary" href={project.demo} target="_blank" rel="noreferrer" aria-label={`Open ${project.title} (opens in a new tab)`}>
+                  Open app <ArrowUpRight size={17} aria-hidden="true" />
+                </a>
+              )}
+            </div>
+          )}
         </div>
-
-        {(project.github || project.demo) && (
-          <div className="modal-links">
-            {project.github && (
-              <a
-                className="button button-primary"
-                href={project.github}
-                target="_blank"
-                rel="noreferrer"
-                aria-label={`View ${project.title} on GitHub (opens in a new tab)`}
-              >
-                <Github size={17} aria-hidden="true" /> View on GitHub
-                <ArrowUpRight size={16} aria-hidden="true" />
-              </a>
-            )}
-            {project.demo && (
-              <a
-                className="button button-secondary"
-                href={project.demo}
-                target="_blank"
-                rel="noreferrer"
-                aria-label={`Open ${project.title} live demo (opens in a new tab)`}
-              >
-                Live demo <ArrowUpRight size={17} aria-hidden="true" />
-              </a>
-            )}
-          </div>
-        )}
       </div>
     </dialog>
   )
