@@ -18,7 +18,6 @@ export default function Achievements() {
                 <h3>{achievement.title}</h3>
                 {achievement.date && achievement.dateLabel && <p className="achievement-date"><time dateTime={achievement.date}>{achievement.dateLabel}</time></p>}
                 {achievement.paperTitle && <p className="achievement-paper"><span>Paper:</span> {achievement.paperTitle}</p>}
-                <p className="achievement-description">{achievement.description}</p>
                 {achievement.certificateUrl ? <a className="achievement-certificate" href={achievement.certificateUrl} target="_blank" rel="noreferrer" aria-label={`View certificate for ${achievement.title} (opens in a new tab)`}>View certificate<ArrowUpRight size={15} aria-hidden="true" /></a> : <p className="achievement-certificate-placeholder">Certificate not added yet</p>}
               </div>
             </li>
