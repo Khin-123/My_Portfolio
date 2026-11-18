@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { MotionConfig } from 'framer-motion'
-import { ArrowDown, ArrowUp, ArrowUpRight, Code2, Download, Github, GraduationCap, Linkedin, Mail, Phone } from 'lucide-react'
+import { ArrowDown, ArrowUp, ArrowUpRight, Code2, Download, Github, Linkedin, Mail, Phone } from 'lucide-react'
 import { profile, education, skillGroups } from './data/profile'
 import { projectCategories, projects } from './data/projects'
 import Navbar from './components/Navbar'
@@ -122,7 +122,7 @@ function App() {
             <div className="project-filters" role="group" aria-label="Filter projects by category">
               {projectCategories.map((category) => (
                 <button key={category} type="button" aria-pressed={filter === category} onClick={() => setFilter(category)}>
-                  {category} <span>{category === 'All' ? projects.length : projects.filter((project) => project.category === category).length}</span>
+                  {category}
                 </button>
               ))}
             </div>
@@ -173,7 +173,7 @@ function App() {
             <Reveal>
               <SectionHeading id="education-title" title="Education" />
               <div className="education-card">
-                <span className="education-icon"><GraduationCap size={28} strokeWidth={1.5} aria-hidden="true" /></span>
+                <img className="education-logo" src="/images/uit-logo.png" alt="" width={1324} height={556} loading="lazy" />
                 <div>
                   <h3>{education.degree}</h3>
                   <p>{education.university}</p>

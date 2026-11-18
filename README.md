@@ -75,7 +75,7 @@ Edit the exported `projects` array in `src/data/projects.js`. Each object create
 }
 ```
 
-Supported categories are `IoT & Embedded`, `Hardware`, and `Software`. The `technologies` list appears under **Skills & tools** on each project card and in the case study. Use `specialty` for areas such as DSP or modeling. Add `contribution` and `verification` to show your role and a verified result in the case study. The **View details** link opens case study content, including optional photos and videos. Follow the existing `evidence` objects for the media format.
+Supported categories are `IoT & Embedded`, `Hardware`, and `Software`. The `technologies` list appears as tags on each project card and in the case study. Use `specialty` for areas such as DSP or modeling. Add `contribution` and `verification` to show your role and a verified result in the case study. The **View details** link opens case study content, including optional photos and videos. Follow the existing `evidence` objects for the media format.
 
 Projects with a public GitHub URL show **View repository** on the card. App links appear in the case study when their URLs are supplied. The current TuneWave clips use synthetic speech processed with the project’s speech enhancement code. The sample concentration plot uses the simulator’s own plotting function with fictitious parameters.
 

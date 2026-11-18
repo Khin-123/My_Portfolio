@@ -6,8 +6,7 @@ export default function ProjectCard({ project, onViewDetails }) {
       <h3>{project.title}</h3>
       <p className="project-description">{project.description}</p>
       <div className="project-skills">
-        <p className="project-skills-label" id={`${project.id}-skills-label`}>Skills &amp; tools</p>
-        <ul className="tags" role="list" aria-labelledby={`${project.id}-skills-label`}>
+        <ul className="tags" role="list" aria-label="Technologies used">
           {project.technologies.map((technology) => <li className="tag" key={technology}>{technology}</li>)}
         </ul>
       </div>
