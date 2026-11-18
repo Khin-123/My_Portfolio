@@ -7,7 +7,7 @@ export const achievements = [
     date: '2026-11-05',
     dateLabel: '5 November 2026',
     paperTitle: 'IoT-based Universal Remote Control System With Cloud Integration',
-    certificateUrl: null, // Suggested local file: '/certificates/ieee-conference-2026.jpg'.
+    certificateUrl: '/certificates/ieee-conference-2026.jpg',
     description: 'Participated in ICAIT 2026 with a research paper focusing on an IoT-based universal remote control system with cloud integration.',
   },
   {
@@ -17,7 +17,7 @@ export const achievements = [
     date: '2026-07',
     dateLabel: 'July 2026 exam session',
     paperTitle: null,
-    certificateUrl: null, // Suggested local file: '/certificates/jlpt-n3.jpg'.
+    certificateUrl: '/certificates/jlpt-n3.jpg',
     description: 'Successfully passed the Japanese-Language Proficiency Test at N3 level, demonstrating intermediate Japanese language proficiency.',
   },
   {
@@ -27,7 +27,7 @@ export const achievements = [
     date: '2023-10',
     dateLabel: 'October 2023 exam session',
     paperTitle: null,
-    certificateUrl: null, // Suggested local file: '/certificates/it-passport.jpg'.
+    certificateUrl: '/certificates/it-passport.jpg', // Suggested local file: '/certificates/it-passport.jpg'.
     description: 'Successfully passed the Information Technology Passport Examination, demonstrating foundational knowledge of information technology and business-related IT concepts.',
   },
   {
@@ -37,7 +37,7 @@ export const achievements = [
     date: '2024-10',
     dateLabel: 'October 2024 exam session',
     paperTitle: null,
-    certificateUrl: null, // Suggested local file: '/certificates/fundamental-it-engineer.jpg'.
+    certificateUrl: '/certificates/fundamental-it-engineer.jpg', // Suggested local file: '/certificates/fundamental-it-engineer.jpg'.
     description: 'Successfully passed the Fundamental Information Technology Engineer Examination, demonstrating knowledge of fundamental computer science, programming, algorithms, and information technology.',
   },
 ]

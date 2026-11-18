@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { MotionConfig } from 'framer-motion'
-import { ArrowDown, ArrowRight, ArrowUp, ArrowUpRight, Code2, Download, Github, GraduationCap, Heart, Linkedin, Mail, Phone } from 'lucide-react'
+import { ArrowDown, ArrowRight, ArrowUp, ArrowUpRight, Code2, Download, Github, GraduationCap, Linkedin, Mail, Phone } from 'lucide-react'
 import { profile, education, skillGroups } from './data/profile'
 import { projects } from './data/projects'
 import Navbar from './components/Navbar'
@@ -106,7 +106,7 @@ function App() {
             </div>
           </section>
         </main>
-        <footer className="site-footer"><div className="container footer-inner"><a className="footer-brand" href="#home"><Code2 size={19} aria-hidden="true" />{profile.name}</a><p>© {new Date().getFullYear()} · Built with curiosity &<Heart size={12} aria-hidden="true" /><span className="sr-only">care</span></p><a className="back-to-top" href="#home">Back to top<ArrowUp size={15} aria-hidden="true" /></a></div></footer>
+        <footer className="site-footer"><div className="container footer-inner"><a className="footer-brand" href="#home"><Code2 size={19} aria-hidden="true" />{profile.name}</a><p>@ 2026 {profile.name}</p><a className="back-to-top" href="#home">Back to top<ArrowUp size={15} aria-hidden="true" /></a></div></footer>
         <ProjectModal project={selectedProject} onClose={() => setSelectedProject(null)} />
     </MotionConfig>
   )
