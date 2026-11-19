@@ -4,6 +4,7 @@ import {
   SiNodedotjs, SiPlatformio, SiProteus, SiPython, SiReact, SiStmicroelectronics, SiTailwindcss,
 } from 'react-icons/si'
 import { VscVscode } from 'react-icons/vsc'
+import AnimatedLogo from './AnimatedLogo'
 
 const icons = {
   ESP32: { icon: Cpu, color: '#007ca6' },
@@ -30,5 +31,9 @@ const icons = {
 export default function SkillIcon({ name }) {
   const { icon: Icon, color } = icons[name] ?? { icon: Wrench, color: 'currentColor' }
 
-  return <Icon className="skill-technology-icon" size={20} color={color} aria-hidden="true" focusable="false" />
+  return (
+    <AnimatedLogo>
+      <Icon size={20} color={color} aria-hidden="true" focusable="false" />
+    </AnimatedLogo>
+  )
 }

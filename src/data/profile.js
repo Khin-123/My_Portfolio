@@ -23,6 +23,24 @@ export const education = {
   period: '2022–present',
   status: 'Final year',
   expectedGraduation: 'December 2027',
+  photos: [
+    {
+      src: '/images/uit-logo.png',
+      label: 'University of Information Technology logo',
+      alt: 'University of Information Technology logo',
+      logo: true,
+    },
+    {
+      src: '/images/education/uit-campus-skybridge.webp',
+      label: 'Campus skybridge',
+      alt: 'A skybridge connecting two University of Information Technology buildings beneath a metal canopy',
+    },
+    {
+      src: '/images/education/uit-campus-courtyard.webp',
+      label: 'Covered courtyard',
+      alt: 'Open-air campus balconies beneath the slatted roof of the university courtyard',
+    },
+  ],
 }
 
 export const skillGroups = [

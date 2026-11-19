@@ -1,11 +1,13 @@
 import { ArrowRight } from 'lucide-react'
+import ProjectStory from './ProjectStory'
 
 export default function ProjectVisual({ evidence }) {
   if (!evidence) return null
 
   return (
-    <figure className="project-evidence">
+    <figure className={evidence.story ? 'project-evidence project-story' : 'project-evidence'}>
       <figcaption>{evidence.label}</figcaption>
+      {evidence.story && <ProjectStory steps={evidence.story} />}
       {evidence.steps && (
         <ol className="evidence-steps" role="list">
           {evidence.steps.map((step, index) => (

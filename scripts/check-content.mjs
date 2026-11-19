@@ -36,6 +36,13 @@ await checkAsset('/images/portfolio-share.jpg', 'Social preview image')
 if (profile.email) assert.match(profile.email, /^[^\s@]+@[^\s@]+\.[^\s@]+$/, 'Enter a valid email or use null')
 if (profile.phone) assert.match(profile.phone, /^\+?[\d\s()-]+$/, 'Enter a valid phone number or use null')
 for (const field of ['university', 'degree', 'period']) assert.ok(education[field], `Education ${field} is required`)
+assert.ok(Array.isArray(education.photos) && education.photos.length > 1, 'The Education carousel needs at least two photos')
+for (const photo of education.photos) {
+  checkText(photo.src, 'Education photo path')
+  checkText(photo.label, 'Education photo label')
+  checkText(photo.alt, 'Education photo description')
+  await checkAsset(photo.src, 'Education photo')
+}
 for (const group of skillGroups) {
   checkText(group.title, 'Skill group title')
   checkTextArray(group.skills, `${group.title} skills`)
@@ -55,9 +62,17 @@ for (const project of projects) {
   checkUrl(project.github, `${project.id} GitHub`)
   checkUrl(project.demo, `${project.id} demo`)
   if (project.evidence) {
-    const { label, steps, image, video, audio } = project.evidence
+    const { label, steps, story, image, video, audio } = project.evidence
     checkText(label, `${project.id} evidence label`)
     if (steps) checkTextArray(steps, `${project.id} diagram steps`)
+    if (story) {
+      assert.ok(Array.isArray(story) && story.length, `${project.id} needs story steps`)
+      story.forEach((step, index) => {
+        for (const field of ['label', 'title', 'description']) {
+          checkText(step?.[field], `${project.id} story step ${index + 1} ${field}`)
+        }
+      })
+    }
     if (image) {
       checkText(image.alt, `${project.id} image description`)
       await checkAsset(image.src, `${project.id} image`)

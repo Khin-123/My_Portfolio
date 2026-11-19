@@ -1,8 +1,9 @@
 import { useEffect, useRef, useState } from 'react'
 import { ArrowUpRight, Code2, Menu, X } from 'lucide-react'
 import { profile } from '../data/profile'
+import AnimatedLogo from './AnimatedLogo'
 
-const links = ['Home', 'Projects', 'Skills', 'About', 'Education', 'Achievements', 'Contact']
+const links = ['Home', 'Projects', 'Skills', 'About', 'Achievements', 'Contact']
 
 export default function Navbar() {
   const [open, setOpen] = useState(false)
@@ -65,7 +66,7 @@ export default function Navbar() {
     <header className="site-header" ref={navRef}>
       <nav className="container nav-inner" aria-label="Main navigation">
         <a className="brand" href="#home" aria-label={`${profile.name} — home`} onClick={() => setOpen(false)}>
-          <span className="brand-icon"><Code2 size={21} aria-hidden="true" /></span>
+          <AnimatedLogo className="brand-icon"><Code2 size={21} aria-hidden="true" /></AnimatedLogo>
           <span>{profile.name}</span>
         </a>
         <button ref={toggleRef} className="menu-toggle" type="button" aria-label={open ? 'Close navigation' : 'Open navigation'}

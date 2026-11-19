@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { MotionConfig } from 'framer-motion'
 import { ArrowDown, ArrowUp, ArrowUpRight, Code2, Download, Github, Linkedin, Mail, Phone } from 'lucide-react'
-import { profile, education, skillGroups } from './data/profile'
+import { profile, skillGroups } from './data/profile'
 import { projectCategories, projects } from './data/projects'
 import Navbar from './components/Navbar'
 import Reveal from './components/Reveal'
@@ -11,6 +11,8 @@ import ProjectCard from './components/ProjectCard'
 import ProjectModal from './components/ProjectModal'
 import Achievements from './components/Achievements'
 import SkillIcon from './components/SkillIcon'
+import AnimatedLogo from './components/AnimatedLogo'
+import Education from './components/Education'
 
 const projectsById = new Map(projects.map((project) => [project.id, project]))
 
@@ -27,10 +29,12 @@ function DownloadCv() {
   )
 }
 
-function ContactLink({ icon: Icon, title, value, href, external = false }) {
+function ContactLink({ icon: Icon, title, value, href, external = false, branded = false }) {
+  const icon = <Icon size={20} aria-hidden="true" />
+
   return (
     <a className="contact-item" href={href} target={external ? '_blank' : undefined} rel={external ? 'noreferrer' : undefined}>
-      <span className="contact-icon"><Icon size={20} aria-hidden="true" /></span>
+      <span className="contact-icon">{branded ? <AnimatedLogo>{icon}</AnimatedLogo> : icon}</span>
       <span className="contact-item-copy"><strong>{title}</strong>{value && <span>{value}</span>}</span>
       <ArrowUpRight size={18} className="contact-arrow" aria-hidden="true" />
     </a>
@@ -94,6 +98,7 @@ function App() {
 
       <main id="main-content" tabIndex={-1}>
         <section id="home" className="hero" aria-labelledby="hero-title" tabIndex={-1}>
+          <HeroIllustration />
           <div className="container hero-layout">
             <Reveal className="hero-copy">
               <h1 id="hero-title">{profile.name}</h1>
@@ -104,15 +109,14 @@ function App() {
               </div>
               <ul className="hero-links" role="list">
                 {profile.github && (
-                  <li><a href={profile.github} target="_blank" rel="noreferrer"><Github size={17} aria-hidden="true" /> GitHub</a></li>
+                  <li><a href={profile.github} target="_blank" rel="noreferrer"><AnimatedLogo><Github size={17} aria-hidden="true" /></AnimatedLogo> GitHub</a></li>
                 )}
                 {profile.linkedin && (
-                  <li><a href={profile.linkedin} target="_blank" rel="noreferrer"><Linkedin size={17} aria-hidden="true" /> LinkedIn</a></li>
+                  <li><a href={profile.linkedin} target="_blank" rel="noreferrer"><AnimatedLogo><Linkedin size={17} aria-hidden="true" /></AnimatedLogo> LinkedIn</a></li>
                 )}
                 <li><a href="#ieee-conference-2026">ICAIT 2026 research <ArrowDown size={17} aria-hidden="true" /></a></li>
               </ul>
             </Reveal>
-            <Reveal className="hero-art" delay={0.12}><HeroIllustration /></Reveal>
           </div>
         </section>
 
@@ -160,28 +164,12 @@ function App() {
         </section>
 
         <section id="about" className="section-pad" aria-labelledby="about-title" tabIndex={-1}>
-          <div className="container">
+          <div className="container about-layout">
             <Reveal>
               <SectionHeading id="about-title" title="About" />
               <div className="about-copy">{profile.about.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}</div>
             </Reveal>
-          </div>
-        </section>
-
-        <section id="education" className="education-section section-pad" aria-labelledby="education-title" tabIndex={-1}>
-          <div className="container">
-            <Reveal>
-              <SectionHeading id="education-title" title="Education" />
-              <div className="education-card">
-                <img className="education-logo" src="/images/uit-logo.png" alt="" width={1324} height={556} loading="lazy" />
-                <div>
-                  <h3>{education.degree}</h3>
-                  <p>{education.university}</p>
-                  <p>{education.period} · {education.status}</p>
-                  {education.expectedGraduation && <p>Expected graduation: {education.expectedGraduation}</p>}
-                </div>
-              </div>
-            </Reveal>
+            <Education />
           </div>
         </section>
 
@@ -200,8 +188,8 @@ function App() {
             <Reveal>
               <div className="contact-list">
                 {profile.phone && <ContactLink icon={Phone} title="Phone" value={profile.phone} href={`tel:${profile.phone.replace(/[^\d+]/g, '')}`} />}
-                {profile.github && <ContactLink icon={Github} title="GitHub" value={profile.githubLabel} href={profile.github} external />}
-                {profile.linkedin && <ContactLink icon={Linkedin} title="LinkedIn" href={profile.linkedin} external />}
+                {profile.github && <ContactLink icon={Github} title="GitHub" value={profile.githubLabel} href={profile.github} external branded />}
+                {profile.linkedin && <ContactLink icon={Linkedin} title="LinkedIn" href={profile.linkedin} external branded />}
               </div>
             </Reveal>
           </div>
@@ -210,7 +198,7 @@ function App() {
 
       <footer className="site-footer">
         <div className="container footer-inner">
-          <a className="footer-brand" href="#home"><Code2 size={19} aria-hidden="true" />{profile.name}</a>
+          <a className="footer-brand" href="#home"><AnimatedLogo><Code2 size={19} aria-hidden="true" /></AnimatedLogo>{profile.name}</a>
           <p>© 2026 {profile.name}</p>
           <a className="back-to-top" href="#home">Back to top <ArrowUp size={15} aria-hidden="true" /></a>
         </div>

@@ -11,7 +11,26 @@ export const projects = [
     technologies: ['ESP32', 'Infrared control', 'React', 'Firebase', 'Node.js', 'Express'],
     evidence: {
       label: 'Command path',
-      steps: ['Web app & cloud', 'ESP32', 'Infrared device'],
+      story: [
+        {
+          label: 'Web app & cloud',
+          icon: 'cloud',
+          title: 'Send the command',
+          description: 'Choose an action in the web app. The cloud-connected backend passes the command to the ESP32.',
+        },
+        {
+          label: 'ESP32',
+          icon: 'chip',
+          title: 'Convert the command to infrared',
+          description: 'The ESP32 receives the command and transmits the corresponding infrared signal.',
+        },
+        {
+          label: 'Infrared appliance',
+          icon: 'appliance',
+          title: 'Control the appliance',
+          description: 'The appliance responds to the signal as it would to a conventional remote.',
+        },
+      ],
     },
     details: {
       overview: 'The project brings infrared control into a web interface. The web stack uses React, Firebase, and a Node.js/Express backend. The ESP32 handles the infrared connection to the appliance.',

@@ -9,4 +9,9 @@ dist/
 *.local
 *.log
 .DS_Store
+Thumbs.db
+Desktop.ini
 qa-artifacts/
+/docs/ui-ux-reaudit-2026-11-19.md
+/playwright-report/
+/test-results/

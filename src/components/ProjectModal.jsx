@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react'
 import { ArrowUpRight, Github, X } from 'lucide-react'
+import AnimatedLogo from './AnimatedLogo'
 import ProjectVisual from './ProjectVisual'
 
 export default function ProjectModal({ project, onClose }) {
@@ -14,6 +15,7 @@ export default function ProjectModal({ project, onClose }) {
     const dialog = dialogRef.current
     const previousFocus = document.activeElement
     const previousOverflow = document.body.style.overflow
+    const openedFromCard = Boolean(window.history.state?.portfolioProject)
 
     document.body.style.overflow = 'hidden'
     if (!dialog.open) dialog.showModal()
@@ -26,10 +28,17 @@ export default function ProjectModal({ project, onClose }) {
       if (linkedSection.current) {
         linkedSection.current.focus({ preventScroll: true })
         linkedSection.current = null
-      } else if (previousFocus instanceof HTMLElement && previousFocus !== document.body && previousFocus.isConnected) {
-        previousFocus.focus({ preventScroll: true })
       } else {
-        document.querySelector(`.project-link[href="#project-${project.id}"]`)?.focus({ preventScroll: true })
+        const cardLink = openedFromCard && document.querySelector(`.project-link[href="#project-${project.id}"]`)
+        if (cardLink) {
+          cardLink.focus({ preventScroll: true })
+        } else if (window.location.hash === '#projects') {
+          const projectsSection = document.getElementById('projects')
+          projectsSection?.focus({ preventScroll: true })
+          projectsSection?.scrollIntoView({ behavior: 'instant' })
+        } else if (previousFocus instanceof HTMLElement && previousFocus !== document.body && previousFocus.isConnected) {
+          previousFocus.focus({ preventScroll: true })
+        }
       }
     }
   }, [project])
@@ -99,7 +108,7 @@ export default function ProjectModal({ project, onClose }) {
               )}
               {project.github && (
                 <a className="button button-secondary" href={project.github} target="_blank" rel="noreferrer" aria-label={`View ${project.title} on GitHub (opens in a new tab)`}>
-                  <Github size={17} aria-hidden="true" /> View on GitHub
+                  <AnimatedLogo><Github size={17} aria-hidden="true" /></AnimatedLogo> View on GitHub
                 </a>
               )}
               {project.demo && (
