@@ -156,6 +156,7 @@ export const projects = [
     contribution: 'Proposed changes to the inherited-risk and combined-risk calculations in the team repository.',
     technologies: ['Python', 'Flask', 'Fuzzy logic'],
     github: 'https://github.com/yoon04/Newborn-Health-Risk-Assessment',
+    demo: 'https://newborn-health-risk-assessment.vercel.app',
     details: {
       overview: 'The team built a Flask interface that combines birth factors and optional family history into an educational risk estimate.',
     },
