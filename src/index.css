@@ -96,24 +96,61 @@ a:active, button:active { filter: brightness(.86); }
 .brand, .footer-brand { display: inline-flex; align-items: center; gap: 10px; }
 .brand { font-size: clamp(17px, 2vw, 20px); line-height: 1.2; }
 .animated-logo { display: inline-flex; flex: none; align-items: center; justify-content: center; }
-.brand-icon {
-  display: grid;
-  place-items: center;
-  width: 36px;
-  height: 36px;
-  border-radius: 8px;
-  color: var(--ink);
-  background: var(--accent);
+.khin-logo {
+  --logo-plate: #102a42;
+  --logo-signal: #68dcf6;
+  --logo-border: #286379;
 }
+.khin-logo-plate { fill: var(--logo-plate); stroke: var(--logo-border); stroke-width: 1.5; }
+.khin-logo-letters {
+  fill: none;
+  stroke: #f4fbff;
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.khin-logo-letters path:nth-child(3) { stroke: var(--logo-signal); }
+.khin-logo-trace, .khin-logo-signal {
+  fill: none;
+  stroke: var(--logo-border);
+  stroke-width: 1.2;
+  stroke-linecap: round;
+}
+.khin-logo-signal { stroke: var(--logo-signal); opacity: 0; }
+.khin-logo-terminal { fill: var(--logo-signal); }
 
 @media (prefers-reduced-motion: no-preference) {
-  .animated-logo[data-logo-visible] { animation: logo-entrance 440ms ease-out; }
-  a:focus-visible .animated-logo > * { animation: logo-gesture 420ms ease-out; }
+  .animated-logo:not(.khin-logo)[data-logo-visible] { animation: logo-entrance 440ms ease-out; }
+  a:focus-visible .animated-logo:not(.khin-logo) > * { animation: logo-gesture 420ms ease-out; }
+  .khin-logo[data-logo-visible] .khin-logo-letters path {
+    stroke-dasharray: 1;
+    animation: khin-logo-draw 480ms cubic-bezier(.2, .65, .25, 1) backwards;
+  }
+  .khin-logo[data-logo-visible] .khin-logo-letters path:nth-child(2) { animation-delay: 85ms; }
+  .khin-logo[data-logo-visible] .khin-logo-letters path:nth-child(3) { animation-delay: 170ms; }
+  .khin-logo[data-logo-visible] .khin-logo-letters path:nth-child(4) { animation-delay: 255ms; }
+  .khin-logo[data-logo-visible] .khin-logo-terminal { animation: khin-logo-terminal 320ms ease-out 440ms backwards; }
+  :is(.brand, .footer-brand):focus-visible .khin-logo-signal { animation: khin-logo-sweep 650ms ease-out; }
 }
 @media (hover: hover) and (prefers-reduced-motion: no-preference) {
-  :is(a, .skill-list li):hover .animated-logo > *, .education-logo-frame:hover > img {
+  :is(a, .skill-list li):hover .animated-logo:not(.khin-logo) > *, .education-logo-frame:hover > img {
     animation: logo-gesture 420ms ease-out;
   }
+  :is(.brand, .footer-brand):hover .khin-logo-signal { animation: khin-logo-sweep 650ms ease-out; }
+}
+@keyframes khin-logo-draw {
+  from { stroke-dashoffset: 1; }
+  to { stroke-dashoffset: 0; }
+}
+@keyframes khin-logo-terminal {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes khin-logo-sweep {
+  from { stroke-dasharray: .27 1; stroke-dashoffset: .27; opacity: 0; }
+  18% { opacity: 1; }
+  78% { opacity: 1; }
+  to { stroke-dasharray: .27 1; stroke-dashoffset: -1; opacity: 0; }
 }
 @keyframes logo-entrance {
   from { opacity: .65; transform: scale(.86); }
@@ -136,17 +173,15 @@ a:active, button:active { filter: brightness(.86); }
   font-size: 14px;
   font-weight: 600;
 }
-.nav-links a.active { color: var(--blue); background: var(--surface); }
-.nav-links a:hover { color: var(--blue-hover); background: var(--surface-hover); }
+.nav-links a:not(.nav-contact).active { color: var(--blue); background: var(--surface); }
+.nav-links a:not(.nav-contact):hover { color: var(--blue-hover); background: var(--surface-hover); }
 .nav-links .nav-contact {
   gap: 7px;
   padding-inline: 14px;
-  color: var(--blue);
-  background: var(--surface);
+  color: var(--canvas);
+  background: var(--blue);
   border-radius: 7px;
 }
-.nav-links .nav-contact.active { color: var(--canvas); background: var(--blue); }
-.nav-links .nav-contact.active:hover { background: var(--blue-hover); }
 .menu-toggle {
   display: none;
   flex: none;
@@ -621,7 +656,7 @@ button { cursor: pointer; }
 .footer-inner { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 6px 14px; }
 .footer-brand { min-height: 44px; }
 .brand:hover { color: var(--blue); }
-.footer-brand svg { color: var(--accent); }
+.footer-brand .khin-logo svg { width: 68px; height: auto; }
 .site-footer p, .site-footer .back-to-top { color: var(--surface); }
 .site-footer p { font-size: 13px; }
 .site-footer a:focus-visible { outline-color: var(--surface); }
@@ -678,6 +713,7 @@ button { cursor: pointer; }
 .modal-highlights { padding-left: 22px; margin-bottom: 15px; list-style: disc; color: var(--muted); font-size: 15px; line-height: 1.65; }
 .modal-highlights li + li { margin-top: 5px; }
 .modal-links { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
+.modal-related-link { margin-inline-start: auto; }
 
 @media (max-width: 1100px) {
   :root { --header-height: 72px; }

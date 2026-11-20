@@ -9,6 +9,8 @@ export const projects = [
     description: 'Control infrared appliances through a web interface and an ESP32.',
     contribution: 'Presented the project’s technical paper at ICAIT 2026.',
     technologies: ['ESP32', 'Infrared control', 'React', 'Firebase', 'Node.js', 'Express'],
+    github: 'https://github.com/Khin-123/IoT-based-Universal-Remote-Controller',
+    demo: 'https://smart-ir-remote-hub.vercel.app/',
     evidence: {
       label: 'Command path',
       story: [
@@ -156,10 +158,6 @@ export const projects = [
     github: 'https://github.com/yoon04/Newborn-Health-Risk-Assessment',
     details: {
       overview: 'The team built a Flask interface that combines birth factors and optional family history into an educational risk estimate.',
-      relatedLink: {
-        href: 'https://github.com/yoon04/Newborn-Health-Risk-Assessment/pull/3',
-        label: 'View my proposed changes',
-      },
     },
   },
 ]

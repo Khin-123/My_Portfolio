@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { MotionConfig } from 'framer-motion'
-import { ArrowDown, ArrowUp, ArrowUpRight, Code2, Download, Github, Linkedin, Mail, Phone } from 'lucide-react'
+import { ArrowDown, ArrowUp, ArrowUpRight, Download, Github, Linkedin, Mail, Phone } from 'lucide-react'
 import { profile, skillGroups } from './data/profile'
 import { projectCategories, projects } from './data/projects'
 import Navbar from './components/Navbar'
@@ -13,6 +13,7 @@ import Achievements from './components/Achievements'
 import SkillIcon from './components/SkillIcon'
 import AnimatedLogo from './components/AnimatedLogo'
 import Education from './components/Education'
+import KhinLogo from './components/KhinLogo'
 
 const projectsById = new Map(projects.map((project) => [project.id, project]))
 
@@ -198,7 +199,7 @@ function App() {
 
       <footer className="site-footer">
         <div className="container footer-inner">
-          <a className="footer-brand" href="#home"><AnimatedLogo><Code2 size={19} aria-hidden="true" /></AnimatedLogo>{profile.name}</a>
+          <a className="footer-brand" href="#home"><KhinLogo />{profile.name}</a>
           <p>© 2026 {profile.name}</p>
           <a className="back-to-top" href="#home">Back to top <ArrowUp size={15} aria-hidden="true" /></a>
         </div>

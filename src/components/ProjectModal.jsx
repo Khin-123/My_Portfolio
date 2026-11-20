@@ -96,16 +96,6 @@ export default function ProjectModal({ project, onClose }) {
 
           {(project.github || project.demo || relatedLink) && (
             <div className="modal-links">
-              {relatedLink && (
-                <a className="button button-primary" href={relatedLink.href} target={relatedLink.href.startsWith('https:') ? '_blank' : undefined} rel="noreferrer"
-                  onClick={(event) => {
-                    if (relatedLink.href.startsWith('#') && !event.metaKey && !event.ctrlKey && !event.shiftKey && !event.altKey) {
-                      linkedSection.current = document.getElementById(relatedLink.href.slice(1))
-                    }
-                  }}>
-                  {relatedLink.label} <ArrowUpRight size={17} aria-hidden="true" />
-                </a>
-              )}
               {project.github && (
                 <a className="button button-secondary" href={project.github} target="_blank" rel="noreferrer" aria-label={`View ${project.title} on GitHub (opens in a new tab)`}>
                   <AnimatedLogo><Github size={17} aria-hidden="true" /></AnimatedLogo> View on GitHub
@@ -114,6 +104,16 @@ export default function ProjectModal({ project, onClose }) {
               {project.demo && (
                 <a className="button button-secondary" href={project.demo} target="_blank" rel="noreferrer" aria-label={`Open ${project.title} (opens in a new tab)`}>
                   Open app <ArrowUpRight size={17} aria-hidden="true" />
+                </a>
+              )}
+              {relatedLink && (
+                <a className="button button-primary modal-related-link" href={relatedLink.href} target={relatedLink.href.startsWith('https:') ? '_blank' : undefined} rel="noreferrer"
+                  onClick={(event) => {
+                    if (relatedLink.href.startsWith('#') && !event.metaKey && !event.ctrlKey && !event.shiftKey && !event.altKey) {
+                      linkedSection.current = document.getElementById(relatedLink.href.slice(1))
+                    }
+                  }}>
+                  {relatedLink.label} <ArrowUpRight size={17} aria-hidden="true" />
                 </a>
               )}
             </div>

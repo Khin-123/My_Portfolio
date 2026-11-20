@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
-import { ArrowUpRight, Code2, Menu, X } from 'lucide-react'
+import { ArrowUpRight, Menu, X } from 'lucide-react'
 import { profile } from '../data/profile'
-import AnimatedLogo from './AnimatedLogo'
+import KhinLogo from './KhinLogo'
 
 const links = ['Home', 'Projects', 'Skills', 'About', 'Achievements', 'Contact']
 
@@ -66,7 +66,7 @@ export default function Navbar() {
     <header className="site-header" ref={navRef}>
       <nav className="container nav-inner" aria-label="Main navigation">
         <a className="brand" href="#home" aria-label={`${profile.name} — home`} onClick={() => setOpen(false)}>
-          <AnimatedLogo className="brand-icon"><Code2 size={21} aria-hidden="true" /></AnimatedLogo>
+          <KhinLogo />
           <span>{profile.name}</span>
         </a>
         <button ref={toggleRef} className="menu-toggle" type="button" aria-label={open ? 'Close navigation' : 'Open navigation'}

@@ -11,7 +11,9 @@ dist/
 .DS_Store
 Thumbs.db
 Desktop.ini
+
+# Local QA and review output
 qa-artifacts/
-/docs/ui-ux-reaudit-2026-11-19.md
+/docs/ui-ux-reaudit-*.md
 /playwright-report/
 /test-results/
